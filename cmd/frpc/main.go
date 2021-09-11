@@ -23,6 +23,8 @@ import (
 
 func main() {
 	crypto.DefaultSalt = "frp"
-
+	log.Info("frpc Version 0.28.2 MoeWorld Build")
+	log.Info("基于Sakura Frpc 二次开发 by 晓空")
+	log.Info("空梦云 Frp客户端 正在启动...")
 	sub.Execute()
 }
