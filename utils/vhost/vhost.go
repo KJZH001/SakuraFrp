@@ -110,7 +110,7 @@ func (v *VhostMuxer) getListener(name, path string) (l *Listener, exist bool) {
 		}
 		domainSplit = domainSplit[1:]
 	}
-
+	return
 }
 
 func (v *VhostMuxer) run() {
