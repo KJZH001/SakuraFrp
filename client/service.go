@@ -55,7 +55,7 @@ func NewService(pxyCfgs map[string]config.ProxyConf, visitorCfgs map[string]conf
 	// Init assets
 	err = assets.Load("")
 	if err != nil {
-		err = fmt.Errorf("Load assets error: %v", err)
+		err = fmt.Errorf("加载资源文件出错: %v", err)
 		return
 	}
 
@@ -79,7 +79,7 @@ func (svr *Service) Run() error {
 	for {
 		conn, session, err := svr.login()
 		if err != nil {
-			log.Warn("login to server failed: %v", err)
+			log.Warn("登录到节点服务器失败: %v", err)
 
 			// if login_fail_exit is true, just exit this program
 			// otherwise sleep a while and try again to connect to server
@@ -104,9 +104,9 @@ func (svr *Service) Run() error {
 	if g.GlbClientCfg.AdminPort != 0 {
 		err := svr.RunAdminServer(g.GlbClientCfg.AdminAddr, g.GlbClientCfg.AdminPort)
 		if err != nil {
-			log.Warn("run admin server error: %v", err)
+			log.Warn("运行管理服务出错: %v", err)
 		}
-		log.Info("admin server listen on %s:%d", g.GlbClientCfg.AdminAddr, g.GlbClientCfg.AdminPort)
+		log.Info("管理服务运行监听在 %s:%d", g.GlbClientCfg.AdminAddr, g.GlbClientCfg.AdminPort)
 	}
 
 	<-svr.closedCh
@@ -124,10 +124,10 @@ func (svr *Service) keepControllerWorking() {
 		}
 
 		for {
-			log.Info("try to reconnect to server...")
+			log.Info("正在尝试重新连接服务器")
 			conn, session, err := svr.login()
 			if err != nil {
-				log.Warn("reconnect to server error: %v", err)
+				log.Warn("尝试重新连接失败！可能是网络或节点问题: %v", err)
 				time.Sleep(delayTime)
 				delayTime = delayTime * 2
 				if delayTime > maxDelayTime {
@@ -221,7 +221,7 @@ func (svr *Service) login() (conn frpNet.Conn, session *fmux.Session, err error)
 
 	svr.runId = loginRespMsg.RunId
 	g.GlbClientCfg.ServerUdpPort = loginRespMsg.ServerUdpPort
-	log.Info("login to server success, get run id [%s], server udp port [%d]", loginRespMsg.RunId, loginRespMsg.ServerUdpPort)
+	log.Info("成功登录到节点服务器, 取得运行ID [%s], 节点 UDP 端口为 [%d]", loginRespMsg.RunId, loginRespMsg.ServerUdpPort)
 	return
 }
 
