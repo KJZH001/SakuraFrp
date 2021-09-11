@@ -183,7 +183,7 @@ func (rp *HttpReverseProxy) getVhost(domain string, location string) (vr *VhostR
 		}
 		domainSplit = domainSplit[1:]
 	}
-	return
+
 }
 
 func (rp *HttpReverseProxy) ServeHTTP(rw http.ResponseWriter, req *http.Request) {
