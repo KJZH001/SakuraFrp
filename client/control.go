@@ -117,14 +117,14 @@ func (ctl *Control) HandleReqWorkConn(inMsg *msg.ReqWorkConn) {
 		RunId: ctl.runId,
 	}
 	if err = msg.WriteMsg(workConn, m); err != nil {
-		ctl.Warn("work connection write to server error: %v", err)
+		ctl.Warn("连接写入服务器失败: %v", err)
 		workConn.Close()
 		return
 	}
 
 	var startMsg msg.StartWorkConn
 	if err = msg.ReadMsgInto(workConn, &startMsg); err != nil {
-		ctl.Error("work connection closed, %v", err)
+		ctl.Error("连接被关闭, %v", err)
 		workConn.Close()
 		return
 	}
@@ -139,9 +139,9 @@ func (ctl *Control) HandleNewProxyResp(inMsg *msg.NewProxyResp) {
 	// Start a new proxy handler if no error got
 	err := ctl.pm.StartProxy(inMsg.ProxyName, inMsg.RemoteAddr, inMsg.Error)
 	if err != nil {
-		ctl.Warn("[%s] start error: %v", inMsg.ProxyName, err)
+		ctl.Warn("[%s] 隧道启动失败: %v", inMsg.ProxyName, err)
 	} else {
-		ctl.Info("[%s] start proxy success", inMsg.ProxyName)
+		ctl.Info("[%s] 隧道启动成功", inMsg.ProxyName)
 	}
 }
 
@@ -165,7 +165,7 @@ func (ctl *Control) connectServer() (conn frpNet.Conn, err error) {
 		stream, errRet := ctl.session.OpenStream()
 		if errRet != nil {
 			err = errRet
-			ctl.Warn("start new connection to server error: %v", err)
+			ctl.Warn("开启新的连接失败: %v", err)
 			return
 		}
 		conn = frpNet.WrapConn(stream)
@@ -179,7 +179,7 @@ func (ctl *Control) connectServer() (conn frpNet.Conn, err error) {
 		conn, err = frpNet.ConnectServerByProxyWithTLS(g.GlbClientCfg.HttpProxy, g.GlbClientCfg.Protocol,
 			fmt.Sprintf("%s:%d", g.GlbClientCfg.ServerAddr, g.GlbClientCfg.ServerPort), tlsConfig)
 		if err != nil {
-			ctl.Warn("start new connection to server error: %v", err)
+			ctl.Warn("开启新的连接失败: %v", err)
 			return
 		}
 	}
@@ -225,7 +225,7 @@ func (ctl *Control) writer() {
 	}
 	for {
 		if m, ok := <-ctl.sendCh; !ok {
-			ctl.Info("control writer is closing")
+			ctl.Info("写入控制已被关闭")
 			return
 		} else {
 			if err := msg.WriteMsg(encWriter, m); err != nil {
