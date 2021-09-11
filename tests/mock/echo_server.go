@@ -5,7 +5,8 @@ import (
 	"io"
 	"net"
 	"os"
-	"syscall"
+
+	/*"syscall"*/
 
 	frpNet "github.com/fatedier/frp/utils/net"
 )
@@ -74,7 +75,7 @@ func StartUdpEchoServer(port int) {
 
 func StartUnixDomainServer(unixPath string) {
 	os.Remove(unixPath)
-	syscall.Umask(0)
+	//syscall.Umask(0)
 	l, err := net.Listen("unix", unixPath)
 	if err != nil {
 		fmt.Printf("unix domain server listen error: %v\n", err)
