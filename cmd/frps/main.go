@@ -18,10 +18,22 @@ import (
 	"github.com/fatedier/golib/crypto"
 
 	_ "github.com/fatedier/frp/assets/frps/statik"
+	"github.com/fatedier/frp/utils/log"
 )
 
 func main() {
 	crypto.DefaultSalt = "frp"
-
+	log.Info("frps Version 0.28.2 MoeWorld Build")
+	log.Info("Based on Sakura Frpc Powered by MoeWorld 晓空")
+	log.Info(" __  __                ______            ")
+	log.Info("|  \\/  |              |  ____|           ")
+	log.Info("| \\  / |  ___    ___  | |__  _ __  _ __  ")
+	log.Info("| |\\/| | / _ \\  / _ \\ |  __|| '__|| '_ \\ ")
+	log.Info("| |  | || (_) ||  __/ | |   | |   | |_) |")
+	log.Info("|_|  |_| \\___/  \\___| |_|   |_|   | .__/ ")
+	log.Info("                                  | |    ")
+	log.Info("                                  |_|    ")
+	log.Info("空梦云 Frp服务端 正在启动...")
+	log.Info("空梦云 Frp服务端 载入服务端配置信息...")
 	Execute()
 }

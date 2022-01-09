@@ -31,3 +31,13 @@ release/
 
 # Cache
 *.swp
+
+# 二进制编译文件
+cmd/frps/frps_windows_386.exefrps_linux_arm64
+cmd/frps/frps_linux_amd64
+cmd/frps/frps_linux_arm64
+cmd/frps/frps_linux_arm
+cmd/frpc/frpc_windows_386.exefrps_linux_arm64
+cmd/frpc/frpc_linux_amd64
+cmd/frpc/frpc_linux_arm64
+cmd/frpc/frpc_linux_arm

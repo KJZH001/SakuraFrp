@@ -18,9 +18,9 @@ import (
 	"fmt"
 	"io"
 	"runtime/debug"
+	"strings"
 	"sync"
 	"time"
-	"strings"
 
 	"github.com/fatedier/frp/g"
 	"github.com/fatedier/frp/models/config"
@@ -210,9 +210,9 @@ func (ctl *Control) RegisterWorkConn(conn net.Conn) {
 
 	select {
 	case ctl.workConnCh <- conn:
-		ctl.conn.Debug("new work connection registered")
+		ctl.conn.Debug("新的网络连接已被注册")
 	default:
-		ctl.conn.Debug("work connection pool is full, discarding")
+		ctl.conn.Debug("网络连接池已满，正在断开...")
 		conn.Close()
 	}
 }
@@ -416,10 +416,10 @@ func (ctl *Control) manager() {
 				}
 				if err != nil {
 					resp.Error = err.Error()
-					ctl.conn.Warn("new proxy [%s] error: %v", m.ProxyName, err)
+					ctl.conn.Warn("新的隧道 [%s] 连接出现错误: %v", m.ProxyName, err)
 				} else {
 					resp.RemoteAddr = remoteAddr
-					ctl.conn.Info("new proxy [%s] success", m.ProxyName)
+					ctl.conn.Info("新的隧道 [%s] 已成功建立", m.ProxyName)
 					ctl.statsCollector.Mark(stats.TypeNewProxy, &stats.NewProxyPayload{
 						Name:      m.ProxyName,
 						ProxyType: m.ProxyType,
@@ -428,10 +428,10 @@ func (ctl *Control) manager() {
 				ctl.sendCh <- resp
 			case *msg.CloseProxy:
 				ctl.CloseProxy(m)
-				ctl.conn.Info("close proxy [%s] success", m.ProxyName)
+				ctl.conn.Info("关闭隧道 [%s] 已成功", m.ProxyName)
 			case *msg.Ping:
 				ctl.lastPing = time.Now()
-				ctl.conn.Debug("receive heartbeat")
+				ctl.conn.Debug("接收到心跳包")
 				ctl.sendCh <- &msg.Pong{}
 			}
 		}

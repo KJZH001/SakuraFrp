@@ -21,6 +21,7 @@ import (
 
 	ini "github.com/vaughan0/go-ini"
 
+	"github.com/fatedier/frp/utils/log"
 	"github.com/fatedier/frp/utils/util"
 )
 
@@ -319,12 +320,14 @@ func UnmarshalServerConfFromIni(defaultCfg *ServerCommonConf, content string) (c
 
 	if tmpStr, ok = conf.Get("common", "api_enable"); ok && tmpStr == "false" {
 		cfg.EnableApi = false
+		log.Info("[警告]当前Frps Api远程验证已被关闭，请确保在离线模式下运行")
 	} else {
 		cfg.EnableApi = true
 	}
 
 	if tmpStr, ok = conf.Get("common", "api_baseurl"); ok {
 		cfg.ApiBaseUrl = tmpStr
+		log.Info("当前远程Api验证地址为：" + tmpStr)
 	}
 
 	if tmpStr, ok = conf.Get("common", "api_token"); ok {

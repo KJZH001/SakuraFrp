@@ -407,7 +407,7 @@ func (svr *Service) RegisterControl(ctlConn frpNet.Conn, loginMsg *msg.Login) (e
 		if err != nil {
 			return err
 		}
-		ctlConn.Debug("%s client speed limit: %dKB/s (Inbound) / %dKB/s (Outbound)", loginMsg.User, inLimit, outLimit)
+		ctlConn.Debug("%s 客户端连接限速更新: %dKB/s (下载) / %dKB/s (上传)", loginMsg.User, inLimit, outLimit)
 	}
 
 	// If client's RunId is empty, it's a new client, we just create a new controller.

@@ -278,7 +278,7 @@ func (ctl *Control) msgHandler() {
 				ctl.HandleNewProxyResp(m)
 			case *msg.Pong:
 				ctl.lastPong = time.Now()
-				ctl.Debug("receive heartbeat from server")
+				ctl.Debug("从服务器接收到心跳包")
 			}
 		}
 	}

@@ -25,7 +25,16 @@ import (
 func main() {
 	crypto.DefaultSalt = "frp"
 	log.Info("frpc Version 0.28.2 MoeWorld Build")
-	log.Info("基于Sakura Frpc 二次开发 by 晓空")
+	log.Info("Based on Sakura Frpc Powered by MoeWorld 晓空")
+	log.Info(" __  __                ______            ")
+	log.Info("|  \\/  |              |  ____|           ")
+	log.Info("| \\  / |  ___    ___  | |__  _ __  _ __  ")
+	log.Info("| |\\/| | / _ \\  / _ \\ |  __|| '__|| '_ \\ ")
+	log.Info("| |  | || (_) ||  __/ | |   | |   | |_) |")
+	log.Info("|_|  |_| \\___/  \\___| |_|   |_|   | .__/ ")
+	log.Info("                                  | |    ")
+	log.Info("                                  |_|    ")
 	log.Info("空梦云 Frp客户端 正在启动...")
+	log.Info("空梦云 Frp客户端 载入映射配置...")
 	sub.Execute()
 }
