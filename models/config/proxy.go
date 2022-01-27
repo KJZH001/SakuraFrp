@@ -22,6 +22,7 @@ import (
 
 	"github.com/fatedier/frp/models/consts"
 	"github.com/fatedier/frp/models/msg"
+	"github.com/fatedier/frp/utils/log"
 	"github.com/fatedier/frp/utils/util"
 
 	ini "github.com/vaughan0/go-ini"
@@ -244,6 +245,10 @@ func (cfg *BindInfoConf) UnmarshalFromIni(prefix string, name string, section in
 	} else {
 		return fmt.Errorf("Parse conf error: proxy [%s] remote_port not found", name)
 	}
+	var cfg_global *ClientCommonConf
+	cfg_global = GetDefaultClientConf()
+	log.Info(fmt.Sprintf("使用 [%d:%d] 来连接到你的隧道", cfg_global.ServerAddr, cfg.RemotePort))
+	log.Info(fmt.Sprintf("或使用 IP 地址连接（不推荐）： [%d:%d] ", cfg_global.ServerAddr, cfg.RemotePort))
 	return nil
 }
 

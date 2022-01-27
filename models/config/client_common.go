@@ -20,6 +20,7 @@ import (
 	"strconv"
 	"strings"
 
+	"github.com/fatedier/frp/utils/log"
 	ini "github.com/vaughan0/go-ini"
 )
 
@@ -98,6 +99,7 @@ func UnmarshalClientConfFromIni(defaultCfg *ClientCommonConf, content string) (c
 	}
 
 	if tmpStr, ok = conf.Get("common", "server_port"); ok {
+		log.Info("映射服务器地址：" + cfg.ServerAddr + tmpStr)
 		v, err = strconv.ParseInt(tmpStr, 10, 64)
 		if err != nil {
 			err = fmt.Errorf("Parse conf error: invalid server_port")
