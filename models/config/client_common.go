@@ -50,6 +50,8 @@ type ClientCommonConf struct {
 	HeartBeatTimeout  int64               `json:"heartbeat_timeout"`
 }
 
+var cfg_global_ServerAddr string
+
 func GetDefaultClientConf() *ClientCommonConf {
 	return &ClientCommonConf{
 		ServerAddr:        "0.0.0.0",
@@ -99,7 +101,8 @@ func UnmarshalClientConfFromIni(defaultCfg *ClientCommonConf, content string) (c
 	}
 
 	if tmpStr, ok = conf.Get("common", "server_port"); ok {
-		log.Info("映射服务器地址：" + cfg.ServerAddr + tmpStr)
+		log.Info("映射服务器地址：" + cfg.ServerAddr + ":" + tmpStr)
+		cfg_global_ServerAddr = cfg.ServerAddr
 		v, err = strconv.ParseInt(tmpStr, 10, 64)
 		if err != nil {
 			err = fmt.Errorf("Parse conf error: invalid server_port")

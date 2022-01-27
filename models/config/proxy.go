@@ -31,6 +31,7 @@ import (
 var (
 	proxyConfTypeMap map[string]reflect.Type
 )
+var cfg_global_proxy *BindInfoConf
 
 func init() {
 	proxyConfTypeMap = make(map[string]reflect.Type)
@@ -245,10 +246,11 @@ func (cfg *BindInfoConf) UnmarshalFromIni(prefix string, name string, section in
 	} else {
 		return fmt.Errorf("Parse conf error: proxy [%s] remote_port not found", name)
 	}
-	var cfg_global *ClientCommonConf
-	cfg_global = GetDefaultClientConf()
-	log.Info(fmt.Sprintf("使用 [%d:%d] 来连接到你的隧道", cfg_global.ServerAddr, cfg.RemotePort))
-	log.Info(fmt.Sprintf("或使用 IP 地址连接（不推荐）： [%d:%d] ", cfg_global.ServerAddr, cfg.RemotePort))
+	//创建全局cfg对象
+	//cfg_global_proxy = cfg
+	log.Info(fmt.Sprintf("隧道[%s]", name))
+	log.Info(fmt.Sprintf("使用 [%s:%d] 来连接到你的隧道", cfg_global_ServerAddr, cfg.RemotePort))
+	// log.Info(fmt.Sprintf("或使用 IP 地址连接（不推荐）： [%s:%d] ", cfg_global.ServerAddr, cfg.RemotePort))
 	return nil
 }
 

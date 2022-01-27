@@ -142,6 +142,9 @@ func (ctl *Control) HandleNewProxyResp(inMsg *msg.NewProxyResp) {
 		ctl.Warn("[%s] 隧道启动失败: %v", inMsg.ProxyName, err)
 	} else {
 		ctl.Info("[%s] 隧道启动成功", inMsg.ProxyName)
+		// cfg_global = GetDefaultClientConf()
+		// log.Info(fmt.Sprintf("使用 [%s:%d] 来连接到你的隧道", cfg_global.ServerAddr, cfg.RemotePort))
+		// log.Info(fmt.Sprintf("或使用 IP 地址连接（不推荐）： [%s:%d] ", cfg_global.ServerAddr, cfg.RemotePort))
 	}
 }
 
