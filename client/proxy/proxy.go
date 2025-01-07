@@ -546,7 +546,7 @@ func HandleTcpWorkConnection(localInfo *config.LocalSvrConf, proxyPlugin plugin.
 		localConn, err := frpNet.ConnectServer("tcp", fmt.Sprintf("%s:%d", localInfo.LocalIp, localInfo.LocalPort))
 		if err != nil {
 			workConn.Close()
-			workConn.Error("connect to local service [%s:%d] error: %v", localInfo.LocalIp, localInfo.LocalPort, err)
+			workConn.Error("连接到服务 [%s:%d] 发生错误: %v", localInfo.LocalIp, localInfo.LocalPort, err)
 			return
 		}
 
